@@ -23,15 +23,13 @@ function extract() {
     done
 }
 
-BASE=../../../vendor/$VENDOR/$DEVICE_COMMON/proprietary
+
+BASE=../../../vendor/samsung/lt02ltexx-common/proprietary
 rm -rf $BASE/*
 
 DEVBASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $DEVBASE/*
 
-extract ../../samsung/$DEVICE_COMMON/proprietary-files.txt $BASE
-extract ../../samsung/$DEVICE/device-proprietary-files.txt $DEVBASE
+extract ../../samsung/lt02ltexx-common/proprietary-files.txt $DEVBASE
 
-
-./../../samsung//$DEVICE_COMMON/setup-makefiles.sh
-./../../samsung//$DEVICE/setup-makefiles.sh
+./../../samsung/lt02ltexx-common/setup-makefiles.sh

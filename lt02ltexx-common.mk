@@ -1,5 +1,4 @@
-# Copyright (C) 2013-2016, The CyanogenMod Project
-# Copyright (C) 2017, The LineageOS Project
+# Copyright (C) 2013 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,22 +13,28 @@
 # limitations under the License.
 
 # Also get non-open-source specific aspects
-$(call inherit-product, vendor/samsung/serrano-common/serrano-common-vendor.mk)
+$(call inherit-product, vendor/samsung/lt02ltexx-common/lt02ltexx-common-vendor.mk)
 
 # Common overlay
-DEVICE_PACKAGE_OVERLAYS += device/samsung/serrano-common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/lt02ltexx-common/overlay
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
+TARGET_SCREEN_HEIGHT := 1024
+TARGET_SCREEN_WIDTH := 600
+
+# No flashlight, no Torch app
+TARGET_HAS_CAM_FLASH := false
+
+# Genlock is needed for camera blob
+PRODUCT_PACKAGES += \
+    libgenlock
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
@@ -78,8 +83,7 @@ PRODUCT_COPY_FILES += \
 # Etc scripts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/system/etc/init.qcom.audio.sh:system/etc/init.qcom.audio.sh \
-    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
+    $(LOCAL_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
 
 # GPS/location security configuration file
 PRODUCT_COPY_FILES += \
@@ -90,18 +94,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
-# Shim for libc to fix camera
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/libshim_c.so:system/lib/libshim_c.so
+# CMFileManager
+# PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/prebuilt/CMFileManager.apk:system/app/CMFileManager/CMFileManager.apk
 
 # GPS HAL
 PRODUCT_PACKAGES += \
     gps.msm8960
-
-# FM radio
-PRODUCT_PACKAGES += \
-    FM2 \
-    qcom.fmradio
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -126,10 +125,6 @@ PRODUCT_PACKAGES += \
     libshim_ril \
     libshim_wvm
 
-# Doze
-PRODUCT_PACKAGES += \
-    SamsungDoze
-
 # Camera
 PRODUCT_PACKAGES += \
     Snap
@@ -137,16 +132,18 @@ PRODUCT_PACKAGES += \
 # Voice processing
 PRODUCT_PACKAGES += \
     libqcomvoiceprocessing
-
+    
 # Gello
-PRODUCT_PACKAGES += \
-    Gello
+# PRODUCT_PACKAGES += \
+#    Gello
 
-# call common serrano system props
-$(call inherit-product, device/samsung/serrano-common/system_prop.mk)
+PRODUCT_CHARACTERISTICS := tablet
+
+# call common lt02ltexx system props
+$(call inherit-product, device/samsung/lt02ltexx-common/system_prop.mk)
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)
 
 # call dalvik heap config
-$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)

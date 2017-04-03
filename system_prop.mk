@@ -4,7 +4,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.android.mobiledata=false \
     ro.telephony.ril_class=SerranoRIL \
     ro.ril.telephony.mqanelements=6 \
     persist.radio.add_power_save=1
@@ -25,14 +24,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true \
     media.aac_51_output_enabled=true \
     media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
+    media.stagefright.less-secure=true \
+	persist.bluetooth.disableabsvol=true
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type=c2d \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
-    ro.sf.lcd_density=240 \
+    ro.sf.lcd_density=160 \
     ro.opengles.version=196608 \
     ro.qualcomm.cabl=0 \
     ro.hwui.text_large_cache_height=2048
@@ -50,10 +50,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     ro.qualcomm.bt.hci_transport=smd \
     qcom.bluetooth.soc=smd
-
-# QC Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so
 
 # Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \
