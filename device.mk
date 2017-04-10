@@ -16,10 +16,10 @@
 PRODUCT_CHARACTERISTICS := tablet
 
 # Also get non-open-source specific aspects
-$(call inherit-product, vendor/samsung/lt02lte-common/lt02lte-common-vendor.mk)
+$(call inherit-product, vendor/samsung/lt02lte/lt02lte-vendor.mk)
 
 # Common overlay
-DEVICE_PACKAGE_OVERLAYS += device/samsung/lt02lte-common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/lt02lte/overlay
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
@@ -44,7 +44,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
 # Audio configuration
 PRODUCT_COPY_FILES += \
@@ -143,7 +144,7 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing
 
 # call common lt02lte system props
-$(call inherit-product, device/samsung/lt02lte-common/system_prop.mk)
+$(call inherit-product, device/samsung/lt02lte/system_prop.mk)
 
 # call common msm8930
 $(call inherit-product, device/samsung/msm8930-common/msm8930.mk)

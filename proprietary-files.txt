@@ -35,9 +35,12 @@ vendor/lib/libsc-a3xx.so
 
 # Radio
 bin/qmuxd
+bin/rild
 bin/rmt_storage
 etc/plmn_se13.bin
 lib/libfactoryutil.so
+lib/libril.so
+lib/libsec-ril.so
 lib/libsecnativefeature.so
 lib/libxml.so
 vendor/lib/libconfigdb.so

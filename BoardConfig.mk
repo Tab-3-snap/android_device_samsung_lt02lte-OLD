@@ -25,9 +25,9 @@
 -include device/samsung/msm8930-common/BoardConfigCommon.mk
 
 # Inherit from proprietary vendor
--include vendor/samsung/lt02lte-common/BoardConfigVendor.mk
+-include vendor/samsung/lt02lte/BoardConfigVendor.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/lt02lte-common/include
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/lt02lte/include
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=22 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
@@ -36,13 +36,17 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8930-common
 TARGET_KERNEL_CONFIG := samsung_lt02_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := msm8930_lt02_spr_defconfig
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := lt02lte,lt02ltespr,lt02ltetmo
+
 # Recovery
 LZMA_RAMDISK_TARGETS := recovery
-TARGET_RECOVERY_FSTAB := device/samsung/lt02lte-common/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/samsung/lt02lte/rootdir/fstab.qcom
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -60,7 +64,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 WITH_DEXPREOPT := true
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/lt02lte-common/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/lt02lte/bluetooth
 
 # Allow suspend in charge mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -71,17 +75,26 @@ TARGET_NEED_DISABLE_AUTOFOCUS := true
 TARGET_NEED_DISABLE_FACE_DETECTION := true
 TARGET_NEED_DISABLE_FACE_DETECTION_BOTH_CAMERAS := true
 
+# Charger
+BOARD_NO_CHARGER_LED := true
+
 # RIL
 TARGET_RIL_VARIANT := caf
 BOARD_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-BOARD_RIL_CLASS := ../../../device/samsung/lt02lte-common/ril/
+BOARD_RIL_CLASS := ../../../device/samsung/lt02lte/ril/
 
 # Time service
 BOARD_USES_QC_TIME_SERVICES := true
 
 # CMHW
-BOARD_HARDWARE_CLASS += device/samsung/lt02lte-common/cmhw
+BOARD_HARDWARE_CLASS += device/samsung/lt02lte/cmhw
+
+# Init properties from bootloader version, ex. model info
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_lt02lte
+TARGET_RECOVERY_DEVICE_MODULES := libinit_lt02lte
+TARGET_LIBINIT_DEFINES_FILE := device/samsung/lt02lte/init/init_lt02lte.cpp
 
 ifeq ($(WITH_TWRP),true)
--include device/samsung/lt02lte-common/twrp.mk
+-include device/samsung/lt02lte/twrp.mk
 endif

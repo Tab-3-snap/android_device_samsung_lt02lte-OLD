@@ -1,3 +1,4 @@
+# Copyright (C) 2013-2016, The CyanogenMod Project
 # Copyright (C) 2017, The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BOARD_HAS_NO_REAL_SDCARD := true
-RECOVERY_SDCARD_ON_DATA := true
-RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_FSTAB := device/samsung/lt02lte/rootdir/twrp.fstab
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TW_HAS_DOWNLOAD_MODE := true
-TW_INCLUDE_CRYPTO := true
-TW_NO_REBOOT_BOOTLOADER := true
-TW_TARGET_USES_QCOM_BSP := true
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Inherit from serranoltexx device
+$(call inherit-product, device/samsung/lt02lte/device.mk)
+
+# Inherit some common LineageOS stuff.
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+
+PRODUCT_NAME := lineage_lt02lte
+PRODUCT_DEVICE := lt02lte
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_GMS_CLIENTID_BASE := android-samsung
